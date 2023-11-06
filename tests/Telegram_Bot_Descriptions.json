@@ -1,0 +1,433 @@
+{
+  "name": "Telegram bot",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "22c09b00-1368-45fa-bd58-28b10b439978",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        260,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "getDescription",
+        "additionalFields": {}
+      },
+      "id": "3fbffeec-9474-4b1b-a711-201233c0183b",
+      "name": "Get initial description",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        620,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "additionalFields": {
+          "languageCode": ""
+        }
+      },
+      "id": "35565623-5be3-4a2e-becc-55f8af07d59e",
+      "name": "Get initial name",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        620,
+        20
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "getCommands",
+        "additionalFields": {}
+      },
+      "id": "f984291f-2d1b-4a2b-9cbe-215a898fa3ec",
+      "name": "Get initial commands",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        620,
+        380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "getShortDescription",
+        "additionalFields": {}
+      },
+      "id": "3a5777f8-4bcb-419b-b4e2-b1be9fabcf4c",
+      "name": "Get initial short description",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        620,
+        560
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "setName",
+        "newBotName": "The Tenth",
+        "additionalFields": {}
+      },
+      "id": "be026639-149d-4775-9300-911ede59c2e3",
+      "name": "Set name",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        840,
+        20
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "setDescription",
+        "newBotDescription": "This is a newly made description. It was made in n8n",
+        "additionalFields": {}
+      },
+      "id": "dff32f92-6939-4a35-871c-e238091731dd",
+      "name": "Set description",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        840,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "setCommands",
+        "newCommands": "[{\n        \"command\": \"start\",\n        \"description\": \"Will start the conversataion\"\n      },\n      {\n        \"command\": \"test\",\n        \"description\": \"this is a test\"\n      },\n      {\n        \"command\": \"custom\",\n        \"description\": \"A custom command for the n8n bot\"\n      },\n      {\n        \"command\": \"dog\",\n        \"description\": \"Will reveal my true nature\"\n      }\n    ]",
+        "additionalFields": {}
+      },
+      "id": "6a1921e9-61e0-4d86-9426-d852602d5f53",
+      "name": "Set commands",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "setShortDescription",
+        "newBotShortDescription": "A very short description",
+        "additionalFields": {}
+      },
+      "id": "b7ce6ddb-1855-48d3-b69e-f9908f9c5907",
+      "name": "Set short description",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        840,
+        560
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "additionalFields": {
+          "languageCode": ""
+        }
+      },
+      "id": "1c4eb111-7266-4acc-9bc9-9c1f956e3f37",
+      "name": "Get new name",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        20
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "getDescription",
+        "additionalFields": {}
+      },
+      "id": "5f2c919f-37e5-4e89-af41-3c76c7bc74e5",
+      "name": "Get new description",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "getCommands",
+        "additionalFields": {}
+      },
+      "id": "041531b7-5b0c-4e2e-8b43-6f43b4ff5406",
+      "name": "Get new commands",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "getShortDescription",
+        "additionalFields": {}
+      },
+      "id": "eea96126-09a7-4568-b72f-cd2359399609",
+      "name": "Get new short description",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        560
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bot",
+        "operation": "deleteCommands",
+        "additionalFields": {}
+      },
+      "id": "9f6d0079-b6de-47c7-98cb-cb7a8533223d",
+      "name": "Delete commands",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        840,
+        380
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Get initial name",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get initial description",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get initial commands",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get initial short description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get initial name": {
+      "main": [
+        [
+          {
+            "node": "Set name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get initial short description": {
+      "main": [
+        [
+          {
+            "node": "Set short description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get initial commands": {
+      "main": [
+        [
+          {
+            "node": "Delete commands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get initial description": {
+      "main": [
+        [
+          {
+            "node": "Set description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set name": {
+      "main": [
+        [
+          {
+            "node": "Get new name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set description": {
+      "main": [
+        [
+          {
+            "node": "Get new description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set commands": {
+      "main": [
+        [
+          {
+            "node": "Get new commands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set short description": {
+      "main": [
+        [
+          {
+            "node": "Get new short description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete commands": {
+      "main": [
+        [
+          {
+            "node": "Set commands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d6933063-6c6f-4f87-b3a8-dce33a507d0c",
+  "id": "Wydf95xAhTp0fYO1",
+  "meta": {
+    "instanceId": "97315fe658e75ca024a447f38134efae5d6e7a5fac45931b3f4cf4c18b270d0f"
+  },
+  "tags": []
+}

@@ -1,0 +1,855 @@
+{
+  "name": "Azure Cosmos",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "0512fbb5-086e-439f-8af1-fc67fada8d26",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "createDatabase",
+        "databaseName": "tempdb"
+      },
+      "id": "232111fd-d45a-434e-9e87-7739f95b4918",
+      "name": "Create new db",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        760,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "databaseName": "={{ $json.id }}"
+      },
+      "id": "a0265a71-e18e-40e7-8c6a-fe319bd684b0",
+      "name": "Get new db",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "collection",
+        "operation": "createCollection",
+        "databaseName": "={{ $json.id }}",
+        "collectionName": "tempcoll"
+      },
+      "id": "ecc2519e-d88b-4fbb-a9e8-6543f586d949",
+      "name": "Create new collection",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "collection",
+        "databaseName": "=tempdb",
+        "collectionName": "={{ $json.id }}"
+      },
+      "id": "5eaff02d-0c01-4e61-8048-e63a5d5aaef1",
+      "name": "Get new collection",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "deleteDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "={{ $json.id }}"
+      },
+      "id": "ebb31874-add8-4da7-ae50-ed373e1ecd54",
+      "name": "Delete document Wakefield",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        20
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "query",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "queryInput": "SELECT * FROM Families f WHERE f.id = @familyId",
+        "queryParameters": "{\"name\": \"@familyId\", \"value\": \"AndersenFamily\"}"
+      },
+      "id": "9d5dc56e-3130-4cda-966f-d876e79d79c5",
+      "name": "Query document Andersen",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        220
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "createDocument",
+        "databaseName": "tempdb",
+        "collectionName": "={{ $json.id }}",
+        "documentContent": "{\n    \"id\": \"AndersenFamily\",\n    \"lastName\": \"Andersen\",\n    \"parents\": [\n       { \"firstName\": \"Thomas\" },\n       { \"firstName\": \"Mary Kay\"}\n    ],\n    \"children\": [\n       {\n           \"firstName\": \"Henriette Thaulow\", \"gender\": \"female\", \"grade\": 5,\n           \"pets\": [{ \"givenName\": \"Fluffy\" }]\n       }\n    ],\n    \"address\": { \"state\": \"WA\", \"county\": \"King\", \"city\": \"seattle\" },\n    \"creationDate\": 1431620472,\n    \"isRegistered\": true\n}"
+      },
+      "id": "ccc5d5d8-a99e-4c12-a102-fe9f5a041a0e",
+      "name": "Create document Andersen",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        220
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "createDocument",
+        "databaseName": "tempdb",
+        "collectionName": "={{ $json.id }}",
+        "documentContent": "{\"id\": \"tempdoc\", \"custom\": \"Create document\"}"
+      },
+      "id": "d06d042d-f7ba-4390-9be8-783e31f6b19d",
+      "name": "Create document",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "createDocument",
+        "databaseName": "tempdb",
+        "collectionName": "={{ $json.id }}",
+        "documentContent": "{\n    \"id\": \"WakefieldFamily\",\n    \"parents\": [\n        { \"familyName\": \"Wakefield\", \"givenName\": \"Robin\" },\n        { \"familyName\": \"Miller\", \"givenName\": \"Ben\" }\n    ],\n    \"children\": [\n        {\n            \"familyName\": \"Merriam\", \n            \"givenName\": \"Jesse\", \n            \"gender\": \"female\", \"grade\": 1,\n            \"pets\": [\n                { \"givenName\": \"Goofy\" },\n                { \"givenName\": \"Shadow\" }\n            ]\n        },\n        { \n            \"familyName\": \"Miller\", \n             \"givenName\": \"Lisa\", \n             \"gender\": \"female\", \n             \"grade\": 8 }\n    ],\n    \"address\": { \"state\": \"NY\", \"county\": \"Manhattan\", \"city\": \"NY\" },\n    \"creationDate\": 1431620462,\n    \"isRegistered\": false\n}"
+      },
+      "id": "c56cad2d-64cf-4979-9127-a024eabe70a5",
+      "name": "Create document Wakefield",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        20
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "={{ $json.id }}"
+      },
+      "id": "4f112924-01b6-441d-8d10-0fdaf97bb141",
+      "name": "Get Andersen document",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        220
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "={{ $json.id }}"
+      },
+      "id": "e9006a92-1a6e-4344-97ae-76004f434966",
+      "name": "Get document",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "={{ $json.id }}"
+      },
+      "id": "950fcdce-2788-41f0-b8e1-641ccba040fc",
+      "name": "Get Wakefield document",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        20
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getDatabaseList"
+      },
+      "id": "240732cd-2c1f-4a1f-843c-3e16bd4e47a1",
+      "name": "Get list of all databases",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        760,
+        220
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getDatabaseList"
+      },
+      "id": "070bdd11-2bd6-4f40-a6d5-d26936a03804",
+      "name": "Get list of all databases1",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        220
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "collection",
+        "operation": "getDatabaseList"
+      },
+      "id": "3a2c105a-a8b4-4296-8352-c4ae154da1d6",
+      "name": "Get list of all collections in a db",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        240
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "replaceDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "documentContent": "{\"id\": \"tempdoc\", \"newKey\": \"This document has been replaced\", \"info\": \"All old data has been removed\"}"
+      },
+      "id": "a0b3f881-1a5b-4428-8fdc-bf7d87a3acfe",
+      "name": "Replace document",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        420
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "operationPath": "/integer",
+        "operationValue": "987"
+      },
+      "id": "758567f3-c3b0-45d4-b2a4-aeb390935239",
+      "name": "Add integer",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2620,
+        120
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "operationPath": "/array",
+        "operationValue": "[0, 1, \"string\", {\"key\": \"value\"}]"
+      },
+      "id": "b71e5da8-dc9a-4d19-8a62-91f9e00f5065",
+      "name": "Add array",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2620,
+        720
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "operationPath": "/object",
+        "operationValue": "{\"string\": \"value\", \"integer\": 10, \"array\": [1, 2], \"object\": {\"key\": \"value\"}, \"array\": [\"a\", 1, [0], {\"key\": \"value\"}]}"
+      },
+      "id": "8ce68916-84fc-45ca-abf4-5fcf3fdb9175",
+      "name": "Add object",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2620,
+        520
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "operationPath": "/string",
+        "operationValue": "\"A string\""
+      },
+      "id": "9a97c81b-8b72-4376-be2d-06b8bdc61c75",
+      "name": "Add string",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2620,
+        320
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "patchOperation": "move",
+        "operationPath": "/object/integer",
+        "operationFrom": "/integer"
+      },
+      "id": "f8274756-5af4-480d-9756-22197542e361",
+      "name": "Move integer",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2840,
+        520
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "patchOperation": "remove",
+        "operationPath": "/array"
+      },
+      "id": "c52b0132-8ef1-467d-ba4f-46cceecbd5b1",
+      "name": "Remove array",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        3060,
+        720
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "operationPath": "/string",
+        "operationValue": "\"A newly replaced string\""
+      },
+      "id": "decb547e-2c31-4248-91ef-28b34245327a",
+      "name": "Replace string",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2840,
+        320
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "patchOperation": "incr",
+        "operationPath": "/integer",
+        "operationValue": "13"
+      },
+      "id": "a2489adb-aeb6-49d7-8de7-4fea5c3b7dbb",
+      "name": "Increment integer",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2840,
+        120
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "tempdb",
+        "collectionName": "tempcoll",
+        "documentName": "tempdoc",
+        "patchOperation": "set",
+        "operationPath": "/array/1",
+        "operationValue": "20"
+      },
+      "id": "0d759090-df58-4690-afb2-a1c796e994cd",
+      "name": "Set array",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        2840,
+        720
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteDatabase",
+        "databaseName": "tempdb"
+      },
+      "id": "3142e17a-63db-4a5c-8e03-b69be8942456",
+      "name": "Delete database1",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        700
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create new db",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get list of all databases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new db": {
+      "main": [
+        [
+          {
+            "node": "Get new db",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get list of all databases1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new db": {
+      "main": [
+        [
+          {
+            "node": "Create new collection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new collection": {
+      "main": [
+        [
+          {
+            "node": "Get new collection",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get list of all collections in a db",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new collection": {
+      "main": [
+        [
+          {
+            "node": "Create document",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create document Andersen",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create document Wakefield",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create document Andersen": {
+      "main": [
+        [
+          {
+            "node": "Get Andersen document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create document": {
+      "main": [
+        [
+          {
+            "node": "Get document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create document Wakefield": {
+      "main": [
+        [
+          {
+            "node": "Get Wakefield document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Andersen document": {
+      "main": [
+        [
+          {
+            "node": "Query document Andersen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Wakefield document": {
+      "main": [
+        [
+          {
+            "node": "Delete document Wakefield",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get document": {
+      "main": [
+        [
+          {
+            "node": "Replace document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace document": {
+      "main": [
+        [
+          {
+            "node": "Add integer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Add object",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Add array",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Add string",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add object": {
+      "main": [
+        [
+          {
+            "node": "Move integer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add array": {
+      "main": [
+        [
+          {
+            "node": "Set array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add string": {
+      "main": [
+        [
+          {
+            "node": "Replace string",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add integer": {
+      "main": [
+        [
+          {
+            "node": "Increment integer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set array": {
+      "main": [
+        [
+          {
+            "node": "Remove array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "83251cd2-1e3b-459d-bedd-c12e7bf165bc",
+  "id": "Z96hVJTAqcLhKzza",
+  "meta": {
+    "instanceId": "97315fe658e75ca024a447f38134efae5d6e7a5fac45931b3f4cf4c18b270d0f"
+  },
+  "tags": []
+}

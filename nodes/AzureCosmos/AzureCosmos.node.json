@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-redacted",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Data & Storage", "Development"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://learn.microsoft.com/en-us/azure/cosmos-db/secure-access-to-data?tabs=using-primary-key"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://learn.microsoft.com/en-us/rest/api/cosmos-db/"
+			}
+		]
+	}
+}

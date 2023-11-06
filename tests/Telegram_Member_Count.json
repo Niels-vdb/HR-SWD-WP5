@@ -1,0 +1,607 @@
+
+{
+  "name": "Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "d5c331db-a384-4ca6-a189-b77c16572bb5",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        320,
+        400
+      ],
+      "webhookId": "15daeea7-43fa-4230-9916-d96153f8fcda",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.message.text }}",
+        "rules": {
+          "rules": [
+            {
+              "operation": "contains",
+              "value2": "/start"
+            },
+            {
+              "operation": "contains",
+              "value2": "/test",
+              "output": 1
+            },
+            {
+              "operation": "contains",
+              "value2": "/custom",
+              "output": 2
+            },
+            {
+              "operation": "contains",
+              "value2": "/dog",
+              "output": 3
+            },
+            {
+              "operation": "contains",
+              "value2": "/sleep",
+              "output": 3
+            }
+          ]
+        }
+      },
+      "id": "a94493bd-52de-4579-a401-493d72082b2d",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        900,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "text": "This is the start message",
+        "additionalFields": {},
+        "chatId": "={{ $json.message.chat.id }}"
+      },
+      "id": "a99f5185-7b6f-489c-bde3-6bf1ab914661",
+      "name": "Start",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        -260
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "This is the test message. Testing 1, 2, 3",
+        "additionalFields": {},
+        "chatId": "={{ $json.message.chat.id }}"
+      },
+      "id": "35e21935-7ed4-4f9b-a1b6-535f50e48f94",
+      "name": "Test",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        -80
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "This is a custom message. Blie Bla",
+        "additionalFields": {},
+        "chatId": "={{ $json.message.chat.id }}"
+      },
+      "id": "87b23660-2b6a-463e-9c8a-8408b722f086",
+      "name": "Custom",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        100
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "Woof! Woof!",
+        "additionalFields": {},
+        "chatId": "={{ $json.message.chat.id }}"
+      },
+      "id": "f8bce003-a3f2-4878-b2e4-b006c1569ea0",
+      "name": "Dog",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "query",
+        "databaseName": "Telegram",
+        "collectionName": "Groups",
+        "queryInput": "SELECT * FROM Groups g WHERE g.id = @id",
+        "queryParameters": "={\"name\": \"@id\", \"value\": \"{{$item(0).$node[\"Group id\"].json[\"group_id\"]}}\"}"
+      },
+      "id": "8d028974-58f9-43ee-a085-ff31271c0b49",
+      "name": "Azure Cosmos",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        920
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "createDatabase",
+        "databaseName": "Telegram"
+      },
+      "id": "f1563871-fed3-4f7a-b522-18d7d0b2840a",
+      "name": "Create db",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        600
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "collection",
+        "operation": "createCollection",
+        "databaseName": "Telegram",
+        "collectionName": "Groups"
+      },
+      "id": "69f9137d-ec76-4545-a604-89b38df6e6fd",
+      "name": "Create coll",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        180,
+        600
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Documents[0].id }}",
+              "operation": "regex",
+              "value2": "[0-9]\\w+"
+            }
+          ]
+        }
+      },
+      "id": "e0d24857-1819-4043-a61a-94fed39d3715",
+      "name": "Check if group already exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "createDocument",
+        "databaseName": "Telegram",
+        "collectionName": "Groups",
+        "documentContent": "={\"id\": \"{{$item(0).$node[\"Group id\"].json[\"group_id\"]}}\", \"members\": {{$item(0).$node[\"Member count\"].json[\"members\"]}}}"
+      },
+      "id": "94a09ff5-701e-467e-a253-9029c4fd1906",
+      "name": "Create new group doc",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        1060
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"group_id\": \"{{ $json.message.chat.id }}\",\n} ",
+        "options": {}
+      },
+      "id": "21bb32c4-f73f-4844-a2cf-eaca8d57dc38",
+      "name": "Group id",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.1,
+      "position": [
+        680,
+        920
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "operation": "memberCount",
+        "chatId": "={{ $json.message.chat.id }}"
+      },
+      "id": "4c4e6984-52f6-44e7-bb95-240350009c57",
+      "name": "Get member count2",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        900,
+        920
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"members\": {{ $json.result }},\n}  ",
+        "options": {}
+      },
+      "id": "9fe878c3-f883-4c20-99eb-d2422b4adc15",
+      "name": "Member count",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.1,
+      "position": [
+        1100,
+        920
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "text": "=A new group chat has been added to the database. Current users: {{$item(0).$node[\"Member count\"].json[\"members\"]}}",
+        "additionalFields": {},
+        "chatId": "6655747250"
+      },
+      "id": "398c863e-4972-4c87-ae38-eac88e4c8d3c",
+      "name": "New group msg",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        1980,
+        1060
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.Documents[0].members }}",
+              "operation": "notEqual",
+              "value2": "={{$item(0).$node[\"Member count\"].json[\"members\"]}}"
+            }
+          ]
+        }
+      },
+      "id": "6e2c5ed6-e09e-4c99-a705-9d4cd472790a",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1720,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "text": "=A existing group chat has a new membercount. Current users: {{$item(0).$node[\"Member count\"].json[\"members\"]}}",
+        "additionalFields": {},
+        "chatId": "6655747250"
+      },
+      "id": "6aaff7cf-46e3-4f31-a91b-8acc2694f158",
+      "name": "Old group new count msg",
+      "type": "n8n-nodes-redacted.telegram",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        600
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "ZAzNvh1b5ERPlYmL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "patchDocument",
+        "databaseName": "Telegram",
+        "collectionName": "Groups",
+        "documentName": "={{$item(0).$node[\"Group id\"].json[\"group_id\"]}}",
+        "patchOperation": "replace",
+        "operationPath": "/members",
+        "operationValue": "={{$item(0).$node[\"Member count\"].json[\"members\"]}}"
+      },
+      "id": "19ddd293-334f-4ec0-b94c-3af0247cae9a",
+      "name": "Patch membercount",
+      "type": "n8n-nodes-redacted.AzureCosmos",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        600
+      ],
+      "credentials": {
+        "azureCosmosApi": {
+          "id": "YvJZFlmimY7bq2pj",
+          "name": "Azure Cosmos account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "update_id": 783972362,
+          "message": {
+            "message_id": 230,
+            "from": {
+              "id": 6655747250,
+              "is_bot": false,
+              "first_name": "Niels",
+              "username": "toastgh0st",
+              "language_code": "en"
+            },
+            "chat": {
+              "id": "-4025218210",
+              "title": "A group name",
+              "type": "group",
+              "all_members_are_administrators": true
+            },
+            "date": 1697909905,
+            "text": "/start@test_redacted_bot",
+            "entities": [
+              {
+                "offset": 0,
+                "length": 24,
+                "type": "bot_command"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Start",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Test",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Custom",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Dog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Group id",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create db": {
+      "main": [
+        [
+          {
+            "node": "Create coll",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure Cosmos": {
+      "main": [
+        [
+          {
+            "node": "Check if group already exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if group already exists": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create new group doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new group doc": {
+      "main": [
+        [
+          {
+            "node": "New group msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Group id": {
+      "main": [
+        [
+          {
+            "node": "Get member count2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get member count2": {
+      "main": [
+        [
+          {
+            "node": "Member count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Member count": {
+      "main": [
+        [
+          {
+            "node": "Azure Cosmos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Patch membercount",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Patch membercount": {
+      "main": [
+        [
+          {
+            "node": "Old group new count msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "14d85f47-5f88-405a-8355-93ed5d7b5d64",
+  "id": "Is3MxWd5aW1elRGP",
+  "meta": {
+    "instanceId": "97315fe658e75ca024a447f38134efae5d6e7a5fac45931b3f4cf4c18b270d0f"
+  },
+  "tags": []
+}
